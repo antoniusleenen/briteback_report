@@ -4,11 +4,8 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
-from reportlab.platypus import Table
-from reportlab.platypus.tables import TableStyle
 
 import datetime as dt
-import numpy as np
 import pandas as pd
 import os
 
@@ -70,59 +67,31 @@ c.drawString(30, 745, 'Week: ' + str(resp_week))
 c.drawString(30, 730, 'Respondents: ' + str(num_respondents))
 c.line(30, 720, 565, 720)
 
-# Respondents Names
-c.setFont('calibri_bold', 12, leading=None)
-c.drawString(30, 705, 'Respondents')
 
-# Set Position and Size
-x = 30
-y = 693
-size = 12
-for line in resp_names:
-    c.setFont('calibri_light', 12, leading=None)
-    c.drawString(x, y, line)
-    y = y-size
+def data_list(data, x, y, f_size, f_font):
+    for line in data:
+        c.setFont(f_font, f_size, leading=None)
+        c.drawString(x, y, str(line))
+        y = y - f_size
+
+
+# Respondents Names
+c.drawString(30, 705, 'Respondents')
+data_list(resp_names, 30, 693, 12, "calibri_light")
 
 # Hours Training of Respondents
 
 # Tennis Training
-c.setFont('calibri_bold', 12, leading=None)
 c.drawString(175, 705, 'Tennis Training (Hours)')
-
-# Set Position and Size
-x = 225
-y = 693
-size = 12
-for line in training_1:
-    c.setFont('calibri_light', 12, leading=None)
-    c.drawString(x, y, str(line))
-    y = y-size
+data_list(training_1, 225, 693, 12, "calibri_light")
 
 # Strength Training
-c.setFont('calibri_bold', 12, leading=None)
 c.drawString(305, 705, 'Strength Training (Hours)')
-
-# Set Position and Size
-x = 365
-y = 693
-size = 12
-for line in training_2:
-    c.setFont('calibri_light', 12, leading=None)
-    c.drawString(x, y, str(line))
-    y = y-size
+data_list(training_2, 365, 693, 12, "calibri_light")
 
 # Other Training
-c.setFont('calibri_bold', 12, leading=None)
 c.drawString(450, 705, 'Other Training (Hours)')
-
-# Set Position and Size
-x = 500
-y = 693
-size = 12
-for line in training_3:
-    c.setFont('calibri_light', 12, leading=None)
-    c.drawString(x, y, str(line))
-    y = y-size
+data_list(training_3, 500, 693, 12, "calibri_light")
 c.line(30, 410, 565, 410)
 
 # Logos Institutes
